@@ -1,0 +1,101 @@
+age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,target,Name,Age,Gender,Blood Type,Medical Condition,Date of Admission,Doctor,Hospital,Insurance Provider,Billing Amount,Test Results
+53,1,2,171,0,0,1,147,0,5.3,3,2,3,1,Patient_0,23,Male,B-,Hypertension,2024-01-01,Dr. Smith,Global Care,Cigna,24683.87,Abnormal
+40,1,0,94,229,0,1,115,0,3.7,1,0,1,0,Patient_1,24,Female,AB+,Cancer,2024-01-02,Dr. Smith,Metro Clinic,Aetna,40166.04,Abnormal
+49,1,2,133,142,0,0,202,1,5.0,1,0,0,0,Patient_2,64,Male,B+,Hypertension,2024-01-03,Dr. Allen,Metro Clinic,Blue Cross,15433.68,Normal
+43,1,0,138,295,1,1,153,0,3.2,2,1,2,1,Patient_3,40,Female,O-,Obesity,2024-01-04,Dr. Smith,Global Care,Blue Cross,37410.04,Normal
+31,1,1,199,0,0,2,136,0,5.3,3,3,2,1,Patient_4,20,Female,A-,Obesity,2024-01-05,Dr. Smith,City Hospital,Medicare,39662.16,Normal
+24,1,1,173,0,0,0,161,0,4.7,3,0,2,1,Patient_5,84,Female,O+,Hypertension,2024-01-06,Dr. Allen,City Hospital,Aetna,46406.04,Abnormal
+79,1,2,130,240,0,2,157,0,2.5,2,3,1,1,Patient_6,25,Male,A-,Diabetes,2024-01-07,Dr. Allen,Metro Clinic,Cigna,45868.57,Normal
+52,1,0,127,345,0,0,192,1,4.9,1,1,0,0,Patient_7,70,Female,O-,Hypertension,2024-01-08,Dr. Allen,Global Care,Blue Cross,7996.96,Abnormal
+62,1,0,121,357,0,1,138,0,2.8,0,0,0,0,Patient_8,75,Male,A+,Cancer,2024-01-09,Dr. Allen,City Hospital,Blue Cross,31861.52,Inconclusive
+61,0,0,190,181,0,1,150,0,2.9,2,2,0,1,Patient_9,65,Female,AB+,Obesity,2024-01-10,Dr. Khan,City Hospital,Blue Cross,12799.52,Abnormal
+59,0,1,190,529,1,1,151,1,3.2,2,0,2,1,Patient_10,48,Male,O+,Diabetes,2024-01-11,Dr. Smith,Metro Clinic,Blue Cross,24308.1,Abnormal
+58,1,2,192,409,1,0,138,0,2.3,3,0,1,1,Patient_11,53,Male,O+,Obesity,2024-01-12,Dr. Allen,City Hospital,Cigna,17061.63,Abnormal
+27,1,0,129,135,0,1,192,1,1.0,0,0,0,0,Patient_12,19,Male,B+,Hypertension,2024-01-13,Dr. Khan,Global Care,Cigna,32886.89,Normal
+59,1,0,98,209,0,0,117,1,5.6,1,3,0,0,Patient_13,37,Female,AB+,Cancer,2024-01-14,Dr. Khan,Global Care,Blue Cross,33350.98,Inconclusive
+58,1,0,170,354,0,0,170,0,5.6,1,0,0,0,Patient_14,42,Female,B+,Hypertension,2024-01-15,Dr. Allen,Metro Clinic,Medicare,25060.3,Abnormal
+32,1,2,188,0,0,0,134,1,4.5,2,0,3,1,Patient_15,43,Female,AB+,Hypertension,2024-01-16,Dr. Smith,City Hospital,Medicare,11615.28,Abnormal
+42,0,3,137,350,0,1,110,0,3.2,2,1,2,1,Patient_16,53,Female,A-,Obesity,2024-01-17,Dr. Smith,City Hospital,Aetna,10369.55,Abnormal
+65,1,0,200,247,1,1,194,1,3.7,1,1,1,0,Patient_17,49,Male,O-,Obesity,2024-01-18,Dr. Smith,Global Care,Medicare,47581.68,Abnormal
+59,1,2,182,177,0,1,168,0,2.1,2,0,1,1,Patient_18,79,Female,B+,Cancer,2024-01-19,Dr. Khan,City Hospital,Medicare,30261.46,Abnormal
+35,1,0,127,269,0,0,87,1,3.8,0,0,1,0,Patient_19,75,Female,B-,Cancer,2024-01-20,Dr. Smith,City Hospital,Cigna,44702.54,Abnormal
+39,1,3,196,253,1,2,140,1,3.5,2,0,1,1,Patient_20,23,Female,A+,Cancer,2024-01-21,Dr. Khan,Global Care,Cigna,4785.67,Abnormal
+72,1,1,177,397,0,2,124,0,5.2,3,2,1,1,Patient_21,22,Female,B-,Diabetes,2024-01-22,Dr. Khan,Metro Clinic,Cigna,14740.94,Inconclusive
+24,0,0,136,164,0,0,91,1,1.8,1,0,1,0,Patient_22,55,Male,A-,Cancer,2024-01-23,Dr. Allen,City Hospital,Blue Cross,29759.04,Inconclusive
+59,1,2,156,223,0,2,184,1,2.4,2,0,2,1,Patient_23,42,Male,A-,Asthma,2024-01-24,Dr. Smith,Metro Clinic,Blue Cross,40544.98,Abnormal
+40,1,1,191,349,1,0,177,1,4.8,2,0,2,1,Patient_24,19,Male,B+,Hypertension,2024-01-25,Dr. Khan,Global Care,Medicare,46405.25,Abnormal
+71,1,1,101,352,0,1,183,0,3.6,0,0,0,0,Patient_25,68,Male,B-,Diabetes,2024-01-26,Dr. Khan,Global Care,Aetna,23431.11,Abnormal
+46,1,0,198,253,0,0,199,1,2.1,0,0,0,0,Patient_26,58,Male,A-,Diabetes,2024-01-27,Dr. Allen,Metro Clinic,Aetna,36641.16,Inconclusive
+42,1,0,157,0,0,2,196,0,4.2,2,2,2,1,Patient_27,41,Female,O-,Diabetes,2024-01-28,Dr. Khan,Global Care,Aetna,35067.63,Inconclusive
+72,0,2,126,478,1,2,119,1,2.9,3,1,2,1,Patient_28,84,Male,AB+,Obesity,2024-01-29,Dr. Smith,Metro Clinic,Cigna,49981.76,Abnormal
+49,0,1,192,521,0,2,133,0,2.9,2,0,2,1,Patient_29,49,Male,B+,Hypertension,2024-01-30,Dr. Khan,Metro Clinic,Medicare,20916.5,Normal
+23,0,0,97,175,0,0,195,1,0.8,0,0,0,0,Patient_30,39,Male,B+,Asthma,2024-01-31,Dr. Allen,Global Care,Blue Cross,1472.26,Inconclusive
+20,1,0,199,248,0,0,86,1,3.2,0,0,0,0,Patient_31,65,Male,O-,Cancer,2024-02-01,Dr. Smith,City Hospital,Medicare,33814.09,Inconclusive
+78,0,0,186,404,1,2,195,1,2.7,2,1,3,1,Patient_32,26,Female,A-,Cancer,2024-02-02,Dr. Khan,Global Care,Blue Cross,23053.53,Inconclusive
+29,1,0,153,357,0,1,202,1,3.5,0,1,0,0,Patient_33,79,Male,B-,Hypertension,2024-02-03,Dr. Khan,Metro Clinic,Aetna,24194.1,Normal
+35,1,2,164,86,0,1,151,0,0.9,3,0,3,1,Patient_34,30,Female,AB+,Asthma,2024-02-04,Dr. Smith,Global Care,Medicare,23650.87,Inconclusive
+75,1,0,126,357,0,0,127,1,5.5,1,0,1,0,Patient_35,31,Female,O+,Cancer,2024-02-05,Dr. Khan,City Hospital,Cigna,47381.19,Normal
+71,1,1,189,231,1,1,149,0,1.4,1,1,2,1,Patient_36,38,Male,A+,Hypertension,2024-02-06,Dr. Allen,City Hospital,Cigna,34106.78,Abnormal
+25,1,0,200,247,1,0,156,1,5.6,2,0,3,0,Patient_37,73,Male,B-,Obesity,2024-02-07,Dr. Smith,Global Care,Aetna,8977.75,Abnormal
+32,1,1,99,248,0,0,125,1,0.1,0,1,0,0,Patient_38,46,Female,O-,Cancer,2024-02-08,Dr. Khan,Metro Clinic,Medicare,42353.57,Inconclusive
+48,0,0,132,241,0,1,78,0,2.1,1,1,0,0,Patient_39,52,Female,B-,Cancer,2024-02-09,Dr. Smith,Metro Clinic,Medicare,9854.22,Abnormal
+27,1,2,159,546,0,2,135,0,5.0,3,0,2,1,Patient_40,48,Female,B-,Cancer,2024-02-10,Dr. Allen,Metro Clinic,Aetna,43007.09,Abnormal
+53,1,2,123,326,1,2,185,0,4.3,2,0,2,1,Patient_41,29,Male,O+,Cancer,2024-02-11,Dr. Khan,Metro Clinic,Medicare,1066.47,Abnormal
+48,1,1,186,381,1,0,177,1,0.1,1,0,2,1,Patient_42,26,Female,A-,Obesity,2024-02-12,Dr. Khan,Metro Clinic,Aetna,32232.96,Abnormal
+71,1,2,136,417,0,1,191,1,3.3,3,0,2,1,Patient_43,66,Male,AB+,Diabetes,2024-02-13,Dr. Khan,Global Care,Blue Cross,45180.68,Normal
+37,0,2,198,472,0,0,184,0,2.9,2,0,0,1,Patient_44,59,Male,O+,Diabetes,2024-02-14,Dr. Allen,Metro Clinic,Blue Cross,43866.3,Inconclusive
+66,1,2,135,252,0,0,83,0,3.4,1,0,0,0,Patient_45,28,Female,A+,Obesity,2024-02-15,Dr. Smith,Metro Clinic,Medicare,16244.8,Abnormal
+22,1,0,126,296,0,1,175,0,4.3,1,0,1,0,Patient_46,61,Male,B-,Cancer,2024-02-16,Dr. Khan,Global Care,Cigna,45813.66,Abnormal
+49,1,0,193,296,1,1,108,1,5.6,1,2,0,0,Patient_47,78,Female,AB+,Asthma,2024-02-17,Dr. Allen,Metro Clinic,Aetna,46135.91,Abnormal
+26,1,0,124,249,0,0,140,0,2.1,0,1,1,0,Patient_48,47,Male,B-,Asthma,2024-02-18,Dr. Khan,Global Care,Cigna,45132.94,Abnormal
+51,1,0,127,325,0,1,118,1,4.1,0,2,1,0,Patient_49,83,Female,B+,Asthma,2024-02-19,Dr. Allen,City Hospital,Aetna,26207.94,Inconclusive
+77,1,1,125,135,0,0,100,0,1.8,0,0,1,0,Patient_50,26,Male,A-,Asthma,2024-02-20,Dr. Khan,Metro Clinic,Aetna,31145.19,Abnormal
+43,1,1,178,389,0,1,137,0,5.7,3,0,3,1,Patient_51,29,Female,O+,Cancer,2024-02-21,Dr. Allen,Metro Clinic,Blue Cross,49344.05,Normal
+28,1,2,139,536,0,2,181,1,5.3,2,4,2,1,Patient_52,75,Male,A-,Cancer,2024-02-22,Dr. Allen,City Hospital,Aetna,42469.58,Inconclusive
+20,1,2,189,231,0,0,114,1,2.4,3,3,1,1,Patient_53,39,Female,AB+,Diabetes,2024-02-23,Dr. Smith,Global Care,Aetna,17680.1,Abnormal
+54,1,2,170,248,1,2,140,1,2.3,1,0,2,1,Patient_54,83,Male,A+,Cancer,2024-02-24,Dr. Allen,City Hospital,Medicare,27747.94,Abnormal
+79,0,0,186,211,0,2,97,1,1.7,2,0,2,1,Patient_55,79,Male,A+,Asthma,2024-02-25,Dr. Allen,Metro Clinic,Cigna,2396.25,Inconclusive
+41,1,2,128,199,1,2,176,1,0.3,2,0,1,1,Patient_56,33,Male,O-,Cancer,2024-02-26,Dr. Smith,Global Care,Cigna,20934.12,Inconclusive
+72,1,2,144,322,1,0,142,0,0.8,1,0,2,1,Patient_57,48,Male,B+,Obesity,2024-02-27,Dr. Khan,Metro Clinic,Blue Cross,14613.2,Inconclusive
+63,1,2,161,208,1,2,126,0,4.9,2,0,1,1,Patient_58,81,Female,B+,Hypertension,2024-02-28,Dr. Allen,Global Care,Aetna,42726.83,Abnormal
+28,1,0,142,138,0,0,105,0,0.7,0,1,0,0,Patient_59,64,Male,O+,Diabetes,2024-02-29,Dr. Smith,Metro Clinic,Medicare,26226.81,Normal
+73,1,2,183,431,0,2,111,0,2.5,3,0,3,1,Patient_60,80,Female,B+,Diabetes,2024-03-01,Dr. Smith,Global Care,Cigna,12563.93,Normal
+77,1,1,196,491,0,1,154,0,2.2,3,1,2,1,Patient_61,72,Male,O-,Hypertension,2024-03-02,Dr. Smith,Metro Clinic,Medicare,42110.24,Inconclusive
+68,0,0,140,244,0,1,90,1,0.1,1,2,0,0,Patient_62,83,Female,A+,Obesity,2024-03-03,Dr. Khan,Metro Clinic,Medicare,35165.42,Inconclusive
+34,1,0,137,199,0,0,113,1,5.1,1,0,1,0,Patient_63,52,Female,A-,Diabetes,2024-03-04,Dr. Allen,City Hospital,Blue Cross,5593.33,Abnormal
+77,0,3,136,359,1,2,167,0,2.6,2,0,0,1,Patient_64,60,Female,O-,Obesity,2024-03-05,Dr. Khan,Metro Clinic,Medicare,11602.67,Inconclusive
+38,1,0,151,193,0,1,198,0,1.4,3,0,2,1,Patient_65,44,Male,O+,Obesity,2024-03-06,Dr. Allen,Global Care,Cigna,44643.57,Normal
+79,1,3,200,264,1,2,167,0,1.1,3,0,2,1,Patient_66,42,Female,A+,Diabetes,2024-03-07,Dr. Allen,City Hospital,Medicare,3847.8,Inconclusive
+73,1,0,143,351,1,2,174,1,1.8,2,0,3,1,Patient_67,60,Female,B+,Hypertension,2024-03-08,Dr. Smith,Metro Clinic,Medicare,2782.18,Inconclusive
+61,1,2,132,0,0,1,172,0,1.1,3,0,3,1,Patient_68,73,Female,O+,Cancer,2024-03-09,Dr. Allen,City Hospital,Aetna,32145.84,Inconclusive
+55,1,0,111,357,0,0,89,1,3.6,0,3,0,0,Patient_69,84,Male,B+,Diabetes,2024-03-10,Dr. Smith,Global Care,Blue Cross,46083.22,Abnormal
+78,1,2,172,309,1,2,173,0,6.0,2,0,1,1,Patient_70,45,Male,B-,Hypertension,2024-03-11,Dr. Khan,Global Care,Blue Cross,8365.29,Normal
+77,0,1,195,0,0,1,129,1,1.2,2,1,1,1,Patient_71,32,Female,B-,Hypertension,2024-03-12,Dr. Smith,Global Care,Blue Cross,24989.91,Normal
+73,1,2,150,176,0,1,165,0,0.2,2,1,2,1,Patient_72,54,Male,A+,Cancer,2024-03-13,Dr. Smith,Global Care,Aetna,15027.34,Inconclusive
+41,0,0,141,410,0,1,124,0,1.9,1,1,0,0,Patient_73,79,Male,O+,Asthma,2024-03-14,Dr. Smith,Metro Clinic,Cigna,25452.46,Normal
+69,1,2,153,328,0,1,125,0,5.9,2,2,1,1,Patient_74,42,Female,A-,Cancer,2024-03-15,Dr. Smith,Global Care,Cigna,35986.89,Inconclusive
+21,1,1,191,504,1,2,194,1,6.1,2,0,1,1,Patient_75,67,Female,O+,Cancer,2024-03-16,Dr. Smith,Global Care,Cigna,6037.4,Abnormal
+57,1,1,189,561,0,2,116,1,4.9,2,2,1,1,Patient_76,81,Female,AB+,Asthma,2024-03-17,Dr. Khan,Global Care,Blue Cross,30284.03,Abnormal
+68,1,0,137,345,0,1,160,0,3.5,1,2,0,0,Patient_77,63,Male,O-,Asthma,2024-03-18,Dr. Allen,Global Care,Aetna,37555.82,Normal
+63,0,2,131,87,0,2,198,1,1.9,3,1,0,1,Patient_78,53,Male,O+,Diabetes,2024-03-19,Dr. Smith,Global Care,Blue Cross,39625.53,Normal
+51,1,2,170,177,0,1,155,1,5.0,3,1,2,1,Patient_79,35,Male,AB+,Hypertension,2024-03-20,Dr. Khan,Global Care,Medicare,6075.16,Abnormal
+41,0,0,126,433,1,2,171,1,2.1,1,1,0,0,Patient_80,56,Male,B+,Hypertension,2024-03-21,Dr. Smith,Metro Clinic,Blue Cross,49216.3,Normal
+37,1,0,145,257,1,0,126,0,4.7,1,3,3,0,Patient_81,53,Female,B+,Asthma,2024-03-22,Dr. Allen,Global Care,Blue Cross,48948.98,Normal
+37,1,1,111,345,0,1,195,0,0.0,0,0,0,0,Patient_82,26,Female,O+,Cancer,2024-03-23,Dr. Allen,Metro Clinic,Cigna,2388.02,Abnormal
+73,1,2,126,508,1,2,185,1,5.6,3,4,2,1,Patient_83,82,Male,A+,Diabetes,2024-03-24,Dr. Smith,Global Care,Cigna,44783.43,Normal
+55,1,0,99,132,0,0,102,0,4.1,0,0,0,0,Patient_84,54,Female,O+,Obesity,2024-03-25,Dr. Khan,City Hospital,Cigna,38621.55,Abnormal
+61,1,3,199,316,1,0,115,0,1.2,1,0,2,1,Patient_85,74,Female,AB+,Diabetes,2024-03-26,Dr. Smith,City Hospital,Aetna,26745.29,Abnormal
+60,1,2,147,392,0,2,164,1,0.3,3,0,2,1,Patient_86,26,Male,A+,Obesity,2024-03-27,Dr. Smith,City Hospital,Medicare,37426.12,Inconclusive
+23,1,3,143,221,0,0,152,1,2.0,0,0,0,0,Patient_87,62,Female,A+,Hypertension,2024-03-28,Dr. Smith,City Hospital,Cigna,31431.41,Abnormal
+22,1,0,143,481,1,2,173,1,1.7,2,2,1,1,Patient_88,64,Female,A+,Obesity,2024-03-29,Dr. Khan,Metro Clinic,Blue Cross,15169.57,Abnormal
+43,0,0,189,261,0,1,99,0,0.9,1,2,0,1,Patient_89,45,Female,AB+,Asthma,2024-03-30,Dr. Khan,Metro Clinic,Blue Cross,40689.72,Abnormal
+74,1,3,143,299,0,0,161,1,0.7,0,0,1,0,Patient_90,63,Female,A-,Diabetes,2024-03-31,Dr. Khan,Metro Clinic,Cigna,18259.56,Inconclusive
+44,1,1,169,0,0,2,174,1,6.0,2,0,1,1,Patient_91,80,Male,B-,Obesity,2024-04-01,Dr. Allen,City Hospital,Cigna,15459.66,Abnormal
+43,0,1,186,236,0,1,79,1,1.5,0,2,2,0,Patient_92,61,Female,B+,Hypertension,2024-04-02,Dr. Khan,City Hospital,Aetna,46550.88,Abnormal
+36,1,0,155,336,0,0,169,1,2.7,3,0,3,1,Patient_93,83,Female,A+,Hypertension,2024-04-03,Dr. Khan,Metro Clinic,Cigna,23836.75,Inconclusive
+34,1,2,172,551,1,0,198,1,1.0,2,0,3,1,Patient_94,44,Male,O+,Cancer,2024-04-04,Dr. Allen,Metro Clinic,Medicare,46059.96,Normal
+43,0,0,190,0,0,1,101,1,0.4,2,0,1,1,Patient_95,39,Female,O-,Obesity,2024-04-05,Dr. Allen,Global Care,Medicare,22858.77,Normal
+61,1,0,151,305,0,1,191,1,3.1,3,1,1,1,Patient_96,81,Female,B+,Cancer,2024-04-06,Dr. Khan,Global Care,Blue Cross,5715.18,Inconclusive
+26,1,2,97,502,1,2,141,1,3.5,2,2,2,1,Patient_97,59,Male,A-,Cancer,2024-04-07,Dr. Smith,Metro Clinic,Aetna,45865.62,Inconclusive
+77,1,0,111,133,0,0,202,0,3.6,0,2,0,0,Patient_98,47,Female,O-,Diabetes,2024-04-08,Dr. Allen,Global Care,Cigna,2867.19,Normal
+42,1,1,195,390,1,2,162,1,4.7,3,0,1,1,Patient_99,47,Female,B+,Hypertension,2024-04-09,Dr. Allen,City Hospital,Cigna,29690.62,Abnormal
