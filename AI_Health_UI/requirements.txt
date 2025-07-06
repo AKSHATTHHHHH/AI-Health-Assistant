@@ -9,14 +9,8 @@ altair
 pytesseract
 pdf2image
 reportlab
-Pillow
+Pillow==9.5.0
 # For OCR and PDF processing
 opencv-python
 # For image processing
 tesseract
-# For OCR
-# Ensure you have Tesseract installed on your system
-# For PDF to image conversion
-# Ensure you have Poppler installed on your system
-# For PDF generation
-# Ensure you have ReportLab installed on your system
