@@ -1,4 +1,4 @@
-streamlit
+streamlit==1.26.0
 pandas
 numpy
 scikit-learn
@@ -7,12 +7,8 @@ matplotlib
 seaborn
 altair
 pytesseract
-pillow
-altair
 pdf2image
 reportlab
-Pillow==9.5.0
-# For OCR and PDF processing
-opencv-python
-# For image processing
-tesseract
+pillow==11.2.0
+streamlit-lottie
+streamlit-aggrid  
