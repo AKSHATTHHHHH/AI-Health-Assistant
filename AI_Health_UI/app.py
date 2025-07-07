@@ -1,5 +1,3 @@
-# Final AI Health Assistant App with Enhanced UI, OCR, and Readable Outputs
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -17,11 +15,21 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import io
 
+# === OCR Extract Text Function ===
+def extract_text(file):
+    poppler_path = r"C:\Users\sharm\Downloads\Release-24.08.0-0\poppler-24.08.0\Library\bin"
+    if file.type == "application/pdf":
+        images = convert_from_bytes(file.read(), poppler_path=poppler_path)
+        return "\n".join([pytesseract.image_to_string(img) for img in images])
+    elif file.type.startswith("image"):
+        return pytesseract.image_to_string(Image.open(file))
+    return "Unsupported file."
+
+# === PDF Report Generator ===
 def generate_pdf_report(prediction, rule_diag, proba, input_data):
     buffer = io.BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
     c.setFont("Helvetica", 12)
-
     y = 750
     c.drawString(50, y, "🧠 AI Health Diagnosis Report")
     y -= 30
@@ -32,14 +40,12 @@ def generate_pdf_report(prediction, rule_diag, proba, input_data):
     c.drawString(50, y, f"Rule-Based Insight: {rule_diag}")
     y -= 30
     c.drawString(50, y, "Patient Inputs:")
-
     for key, val in input_data.items():
         y -= 20
         c.drawString(70, y, f"{key}: {val}")
         if y < 100:
             c.showPage()
             y = 750
-
     c.save()
     buffer.seek(0)
     return buffer
@@ -47,16 +53,14 @@ def generate_pdf_report(prediction, rule_diag, proba, input_data):
 # Configure Tesseract path (Windows)
 pytesseract.pytesseract.tesseract_cmd = r"C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
 
-# Page Config
+# === Streamlit App Config ===
 st.set_page_config(page_title="🧠 AI Health Assistant", layout="wide", page_icon="🩺")
 
-# Sidebar Branding
+# === Sidebar Branding ===
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/3771/3771395.png", width=60)
     st.markdown("### 🌐 AI-Powered Structure Health Monitoring")
     st.markdown("""
-Welcome to your **Smart Diagnosis** platform.
-
 **Powered by**  
 - 🧠 Streamlit  
 - 🤖 Machine Learning  
@@ -64,12 +68,10 @@ Welcome to your **Smart Diagnosis** platform.
 - 📊 Visual Analytics
     """)
     st.divider()
-    st.markdown("### 🔧 Settings")
     show_confidence = st.checkbox("📊 Show Prediction Confidence", value=True)
     show_ocr = st.checkbox("📑 Enable OCR Preview", value=True)
-    enable_debug = st.checkbox("🛠️ Developer Debug Info", value=False)
 
-# Load model and dataset
+# === Load Model and Dataset ===
 @st.cache_data
 def load_model_and_data():
     model = joblib.load("model.pkl")
@@ -85,44 +87,38 @@ def load_model_and_data():
 
     X = df.drop('target', axis=1)
     y = df['target']
-
     imputer = SimpleImputer(strategy='mean')
     X_imputed = imputer.fit_transform(X)
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X_imputed)
-
     return model, scaler, X, y, df
 
 model, scaler, X_full, y_full, df_full = load_model_and_data()
 
-# Mapping for readable fields
+# === Mapping Helper ===
 def readable_value(key, val):
     if key.lower() == 'gender':
         return 'Male' if val == 1 else 'Female'
     elif key.lower() == 'blood type':
         return ['A', 'B', 'AB', 'O'][int(val) % 4] if isinstance(val, (int, float)) else val
     elif key.lower() == 'age':
-        if val < 18:
-            return "Child"
-        elif val < 40:
-            return "Young Adult"
-        elif val < 60:
-            return "Adult"
-        else:
-            return "Senior"
+        if val < 18: return "Child"
+        elif val < 40: return "Young Adult"
+        elif val < 60: return "Adult"
+        else: return "Senior"
     return val
 
-# Tabs Layout
+# === Layout ===
 st.title("🧠 AI-Powered Medical Report Detection Tool")
 tab1, tab2, tab3 = st.tabs(["🔍 Diagnose", "📊 Charts", "ℹ️ About"])
 
-# --- Diagnose Tab ---
+# === Diagnose Tab ===
 with tab1:
     st.header("📋 Patient Diagnosis Panel")
     st.caption("Fill out patient data and upload a medical report for AI-powered diagnosis.")
-
     input_data = {}
     cols = df_full.drop(columns='target').columns.tolist()
+
     with st.form("patient_form"):
         for i, col in enumerate(cols):
             if col.lower() == "sex":
@@ -134,18 +130,8 @@ with tab1:
 
     uploaded_file = st.file_uploader("📤 Upload Medical Report (PDF/Image)", type=["pdf", "png", "jpg", "jpeg"])
     extracted_text = ""
-
     if uploaded_file:
         st.success(f"Uploaded: {uploaded_file.name}")
-
-        def extract_text(file):
-            if file.type == "application/pdf":
-                images = convert_from_bytes(file.read())
-                return "\n".join([pytesseract.image_to_string(img) for img in images])
-            elif file.type.startswith("image"):
-                return pytesseract.image_to_string(Image.open(file))
-            return "Unsupported file."
-
         extracted_text = extract_text(uploaded_file)
         if show_ocr:
             st.text_area("🧾 Extracted Text from Report", value=extracted_text, height=200)
@@ -163,20 +149,15 @@ with tab1:
             rule_diag = "High Cholesterol" if chol > 240 else "Low Heart Rate - Risk" if thalach < 100 else "Possible Diabetes" if fbs == 1 else "Normal"
 
         st.subheader("🩺 AI Diagnosis Result")
-        if prediction == 0:
-            st.success("✅ Heart is likely healthy.")
-        else:
-            st.error("⚠️ Risk of Heart Disease.")
-
+        st.success("✅ Heart is likely healthy.") if prediction == 0 else st.error("⚠️ Risk of Heart Disease.")
         if show_confidence:
             st.metric("📊 Prediction Confidence", f"{proba:.2%}")
         st.info(f"💡 Rule-Based Insight: {rule_diag}")
-
         st.markdown("### 📑 PDF Report")
         pdf_bytes = generate_pdf_report(prediction, rule_diag, proba, input_data)
         st.download_button("📥 Download PDF Report", data=pdf_bytes, file_name="diagnosis_report.pdf", mime="application/pdf")
 
-# --- Charts Tab ---
+# === Charts Tab ===
 with tab2:
     st.header("📊 Visual Summary & Insights")
     col1, col2 = st.columns(2)
@@ -200,8 +181,6 @@ with tab2:
     ax2.set_ylabel('')
     st.pyplot(fig2)
 
-    st.markdown("ℹ️ These insights are generated from rule-based thresholds, not ML output.")
-
     if hasattr(model, "feature_importances_"):
         st.subheader("🧬 Feature Importance")
         feat_df = pd.DataFrame({
@@ -217,27 +196,26 @@ with tab2:
     else:
         st.warning("⚠️ Feature importance not available for this model.")
 
-# --- About Tab ---
+# === About Tab ===
 with tab3:
     st.header("ℹ️ About This App")
     st.markdown("""
 This tool demonstrates AI integration in health diagnostics using real-time patient data.
 
 **Key Features:**
-- 🧠 ML prediction for heart conditions using supervised learning
-- 📑 OCR-based medical report processing
-- 📊 Rule-based insight detection
-- 📈 Visual analytics & filtering
-- 📤 Report uploads with optional text extraction
+- 🧠 ML prediction for heart conditions using supervised learning  
+- 📑 OCR-based medical report processing  
+- 📊 Rule-based insight detection  
+- 📈 Visual analytics & filtering  
 - 📥 Exportable PDF/text output
 
-**Tech Stack:**
-Python · Streamlit · scikit-learn · Tesseract OCR · Altair · Matplotlib · Seaborn
-
+**Tech Stack:** Python · Streamlit · scikit-learn · Tesseract OCR · Altair · Matplotlib · Seaborn  
 **Version:** v1.0.0  
-**Developed By:** Akshat Sharma  
-**Mentor:** Prof. XYZ  
-**Email:** [akshatsharma3@shooliniuniversity.com](mailto:akshatsharma3@shooliniuniversity.com)
-
+**Developer:** Akshat Sharma  
+**Email:** [akshatsharma3@shooliniuniversity.com](mailto:akshatsharma3@shooliniuniversity.com)  
 **Disclaimer:** For educational & research use only.
-    """)
+""")
+    st.divider()
+    st.markdown("© 2023 Akshat Sharma. All rights reserved.")
+    st.markdown("![GitHub Repo](https://img.shields.io/github/stars/akshatsharma3/AI_Health_UI?style=social)")
+    st.markdown("![GitHub License](https://img.shields.io/github/license/akshatsharma3/AI_Health_UI)")
