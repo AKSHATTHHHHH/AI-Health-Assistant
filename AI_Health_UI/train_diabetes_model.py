@@ -1,3 +1,5 @@
+# ✅ Updated RandomForest Training Script (Python 3.13 Compatible)
+
 import pandas as pd
 import numpy as np
 import joblib
@@ -8,9 +10,11 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pathlib import Path
 
 # === Step 1: Load dataset ===
-df = pd.read_csv("healthcare_project/merged_clean_health_dataset.csv")
+df_path = Path("healthcare_project/merged_clean_health_dataset.csv")
+df = pd.read_csv(df_path)
 print("📋 Columns in CSV:\n", df.columns)
 print("\n🔍 Sample data:\n", df.head())
 
@@ -60,19 +64,21 @@ print("\n📈 Classification Report:\n", classification_report(y_test, y_pred))
 print("\n🧾 Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
 
 # === Step 10: Save model, scaler, imputer, feature names ===
-joblib.dump(model, "heart_model.pkl")
-joblib.dump(scaler, "heart_scaler.pkl")
-joblib.dump(imputer, "heart_imputer.pkl")
-joblib.dump(list(X.columns), "feature_names.pkl")
+Path("models").mkdir(exist_ok=True)
+joblib.dump(model, "models/heart_model.pkl")
+joblib.dump(scaler, "models/heart_scaler.pkl")
+joblib.dump(imputer, "models/heart_imputer.pkl")
+joblib.dump(list(X.columns), "models/feature_names.pkl")
 print("💾 Saved: heart_model.pkl, heart_scaler.pkl, heart_imputer.pkl, feature_names.pkl")
+
 # === Step 11: Visualize feature importance ===
 feature_importances = model.feature_importances_
 feature_names = list(X.columns)
 plt.figure(figsize=(10, 6))
-sns.barplot(x=feature_importances, y=feature_names)
+sns.barplot(x=feature_importances, y=feature_names, palette="viridis")
 plt.title("Feature Importance")
 plt.xlabel("Importance")
 plt.ylabel("Features")
 plt.tight_layout()
-plt.savefig("feature_importance.png")
-print("📊 Feature importance plot saved as feature_importance.png")
+plt.savefig("models/feature_importance.png")
+print("📊 Feature importance plot saved as models/feature_importance.png")
