@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+import os
 from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
 import matplotlib.pyplot as plt
@@ -22,12 +23,48 @@ from typing import Tuple, Dict, Any
 # Configure Tesseract path (Windows)
 pytesseract.pytesseract.tesseract_cmd = str(Path("C:/Program Files/Tesseract-OCR/tesseract.exe"))
 
-# Load model
+# Load model only
 @st.cache_resource
 def load_model():
-    return joblib.load("model.pkl")
+    base_path = os.path.dirname(__file__)
+    return joblib.load(os.path.join(base_path, "model.pkl"))
 
-# PDF Text Extraction
+# Load model + dataset + preprocessing
+@st.cache_data
+def load_model_and_data() -> Tuple[Any, StandardScaler, pd.DataFrame, pd.Series, pd.DataFrame]:
+    base_path = os.path.dirname(__file__)
+    
+    # Correct model path (one level above AI_Health_UI)
+    model_path = os.path.abspath(os.path.join(base_path, "..", "model.pkl"))
+    
+    # Correct CSV path
+    csv_path = os.path.abspath(os.path.join(base_path, "..", "healthcare_project", "merged_clean_health_dataset.csv"))
+
+    model = joblib.load(model_path)
+    df = pd.read_csv(csv_path)
+
+    df.replace([np.inf, -np.inf], np.nan, inplace=True)
+    df.dropna(axis=0, how='all', inplace=True)
+
+    drop_cols = ['Name', 'Doctor', 'Hospital', 'Insurance Provider', 'Date of Admission', 'Discharge Date']
+    df.drop(columns=[col for col in drop_cols if col in df.columns], inplace=True)
+
+    for col in df.select_dtypes(include='object').columns:
+        df[col] = df[col].astype('category').cat.codes
+
+    X = df.drop('target', axis=1)
+    y = df['target']
+
+    imputer = SimpleImputer(strategy='mean')
+    X_imputed = imputer.fit_transform(X)
+
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X_imputed)
+
+    return model, scaler, X, y, df
+
+
+# PDF Text Extraction (OCR)
 def extract_text(file) -> str:
     try:
         if file.type == "application/pdf":
@@ -40,7 +77,7 @@ def extract_text(file) -> str:
     except Exception as e:
         return f"OCR Error: {str(e)}"
 
-# Generate PDF report
+# Generate PDF Report
 def generate_pdf_report(prediction: int, rule_diag: str, proba: float, input_data: Dict[str, Any]) -> io.BytesIO:
     buffer = io.BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
@@ -86,24 +123,6 @@ with st.sidebar:
     show_ocr = st.checkbox("📁 Enable OCR Preview", value=True)
 
 # Load model and data
-@st.cache_data
-def load_model_and_data() -> Tuple[Any, StandardScaler, pd.DataFrame, pd.Series, pd.DataFrame]:
-    model = joblib.load("model.pkl")
-    df = pd.read_csv("healthcare_project/merged_clean_health_dataset.csv")
-    df.replace([np.inf, -np.inf], np.nan, inplace=True)
-    df.dropna(axis=0, how='all', inplace=True)
-    drop_cols = ['Name', 'Doctor', 'Hospital', 'Insurance Provider', 'Date of Admission', 'Discharge Date']
-    df.drop(columns=[col for col in drop_cols if col in df.columns], inplace=True)
-    for col in df.select_dtypes(include='object').columns:
-        df[col] = df[col].astype('category').cat.codes
-    X = df.drop('target', axis=1)
-    y = df['target']
-    imputer = SimpleImputer(strategy='mean')
-    X_imputed = imputer.fit_transform(X)
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X_imputed)
-    return model, scaler, X, y, df
-
 model, scaler, X_full, y_full, df_full = load_model_and_data()
 
 # Tabs
@@ -225,3 +244,4 @@ This tool demonstrates AI-powered diagnostics from medical input and reports.
 **Developer:** Akshat Sharma  
 **Email:** [akshatsharma3@shooliniuniversity.com](mailto:akshatsharma3@shooliniuniversity.com)
 """)
+    
