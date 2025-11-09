@@ -1,0 +1,8 @@
+Date,Disease,Input,Prediction,Confidence
+2025-11-08 00:39:49,Heart,"{""age"": 45, ""sex"": 1, ""cp"": 0, ""trestbps"": 130, ""chol"": 200, ""fbs"": 0, ""restecg"": 0, ""thalach"": 150, ""exang"": 0, ""oldpeak"": 1.0, ""slope"": 0, ""ca"": 0, ""thal"": 1}",0,1.0
+2025-11-08 00:50:10,Heart,"{""age"": 45, ""sex"": 1, ""cp"": 0, ""trestbps"": 130, ""chol"": 200, ""fbs"": 0, ""restecg"": 0, ""thalach"": 150, ""exang"": 0, ""oldpeak"": 1.0, ""slope"": 0, ""ca"": 0, ""thal"": 1}",0,1.0
+2025-11-08 02:09:42,Heart,"{""age"": 45, ""sex"": 1, ""cp"": 0, ""trestbps"": 130, ""chol"": 200, ""fbs"": 0, ""restecg"": 0, ""thalach"": 150, ""exang"": 0, ""oldpeak"": 1.0, ""slope"": 0, ""ca"": 0, ""thal"": 1}",0,1.0
+2025-11-08 02:53:00,Heart,"{""age"": 45, ""sex"": 1, ""cp"": 0, ""trestbps"": 130, ""chol"": 200, ""fbs"": 0, ""restecg"": 0, ""thalach"": 150, ""exang"": 0, ""oldpeak"": 1.0, ""slope"": 0, ""ca"": 0, ""thal"": 1}",0,1.0
+2025-11-08 03:08:13,Heart,"{""age"": 45, ""sex"": 1, ""cp"": 0, ""trestbps"": 130, ""chol"": 200, ""fbs"": 0, ""restecg"": 0, ""thalach"": 150, ""exang"": 0, ""oldpeak"": 1.0, ""slope"": 0, ""ca"": 0, ""thal"": 1}",0,1.0
+2025-11-08 03:22:24,Heart,"{""age"": 45, ""sex"": 1, ""cp"": 0, ""trestbps"": 130, ""chol"": 200, ""fbs"": 0, ""restecg"": 0, ""thalach"": 150, ""exang"": 0, ""oldpeak"": 1.0, ""slope"": 0, ""ca"": 0, ""thal"": 1}",0,1.0
+2025-11-08 03:22:26,Heart,"{""age"": 45, ""sex"": 1, ""cp"": 0, ""trestbps"": 130, ""chol"": 200, ""fbs"": 0, ""restecg"": 0, ""thalach"": 150, ""exang"": 0, ""oldpeak"": 1.0, ""slope"": 0, ""ca"": 0, ""thal"": 1}",0,1.0

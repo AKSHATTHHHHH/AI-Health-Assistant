@@ -1,0 +1,20 @@
+# Virtual environments
+venv/
+.venv/
+{new_venv_directory}/
+
+# IDEs and caches
+__pycache__/
+.vscode/
+.idea/
+.pytest_cache/
+.tmp.driveupload/
+
+# Models and datasets
+models/
+Datasets/
+
+# Firebase, config files
+.firebaserc
+*.json
+*.yaml
