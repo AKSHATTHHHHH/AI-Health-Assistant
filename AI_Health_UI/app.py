@@ -21,6 +21,19 @@ from firebase_admin import credentials, firestore
 # -------------------------
 # FIREBASE SETUP
 # -------------------------
+import streamlit as st
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+# Load Firebase credentials from Streamlit secrets
+firebase_config = st.secrets["FIREBASE"]
+
+cred = credentials.Certificate(firebase_config)
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+
+# Alternatively, if using a local JSON file for credentials:
+#
 cred = credentials.Certificate("AI_Health_UI/ai-power-structural-health-m-s-firebase-adminsdk-fbsvc-065dfad472.json")  # <-- Set path here
 firebase_admin.initialize_app(cred)
 db = firestore.client()
