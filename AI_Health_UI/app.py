@@ -21,23 +21,42 @@ from firebase_admin import credentials, firestore
 # -------------------------
 # FIREBASE SETUP
 # -------------------------
+# -------------------------
+# FIREBASE SETUP (FIXED)
+# -------------------------
 import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, firestore
+import json
 
-# Load Firebase credentials from Streamlit secrets
-firebase_config = st.secrets["FIREBASE"]
+# Try to load Firebase from Streamlit secrets first
+try:
+    firebase_config = st.secrets["FIREBASE"]
 
-cred = credentials.Certificate(firebase_config)
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+    # Convert the dict to JSON string and then back to dict (safety check)
+    if isinstance(firebase_config, str):
+        firebase_config = json.loads(firebase_config)
 
-# Alternatively, if using a local JSON file for credentials:
-#
-cred = credentials.Certificate("AI_Health_UI/ai-power-structural-health-m-s-firebase-adminsdk-fbsvc-065dfad472.json")  # <-- Set path here
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+    cred = credentials.Certificate(firebase_config)
 
+    if not firebase_admin._apps:
+        firebase_admin.initialize_app(cred)
+
+    db = firestore.client()
+    st.success("✅ Firebase connected via Streamlit secrets.")
+
+except Exception as e:
+    # Fallback: try local JSON file
+    st.warning(f"⚠️ Using local Firebase credentials: {e}")
+    try:
+        cred = credentials.Certificate("AI_Health_UI/ai-power-structural-health-m-s-firebase-adminsdk-fbsvc-065dfad472.json")
+        if not firebase_admin._apps:
+            firebase_admin.initialize_app(cred)
+        db = firestore.client()
+        st.success("✅ Firebase connected via local file.")
+    except Exception as e2:
+        st.error(f"❌ Firebase connection failed: {e2}")
+        db = None
 # -------------------------
 # CONFIG
 # -------------------------
@@ -157,7 +176,14 @@ def save_prediction_history(disease, columns, input_values, pred, conf):
         "Prediction": int(pred),
         "Confidence": float(np.max(conf)) if conf is not None else None
     }
-    db.collection("predictions").add(record)
+    # Guard against missing Firestore client
+    if db is None:
+        st.warning("⚠️ Firebase not connected; prediction history not saved.")
+        return
+    try:
+        db.collection("predictions").add(record)
+    except Exception as e:
+        st.warning(f"⚠️ Failed to save prediction history: {e}")
 
 def generate_report(disease, columns, input_values, pred, conf):
     conf_str = f"{np.max(conf):.2f}" if conf is not None else "N/A"
