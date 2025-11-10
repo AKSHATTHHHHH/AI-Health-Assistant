@@ -17,26 +17,16 @@ import random
 import time
 import firebase_admin
 from firebase_admin import credentials, firestore
-
-# -------------------------
-# FIREBASE SETUP
-# -------------------------
 # -------------------------
 # FIREBASE SETUP (FIXED)
 # -------------------------
 import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, firestore
-import json
 
-# Try to load Firebase from Streamlit secrets first
 try:
-    firebase_config = st.secrets["FIREBASE"]
-
-    # Convert the dict to JSON string and then back to dict (safety check)
-    if isinstance(firebase_config, str):
-        firebase_config = json.loads(firebase_config)
-
+    # ✅ Load Firebase config from Streamlit secrets
+    firebase_config = dict(st.secrets["FIREBASE"])
     cred = credentials.Certificate(firebase_config)
 
     if not firebase_admin._apps:
@@ -46,10 +36,10 @@ try:
     st.success("✅ Firebase connected via Streamlit secrets.")
 
 except Exception as e:
-    # Fallback: try local JSON file
+    # ⚠️ Fallback to local JSON file
     st.warning(f"⚠️ Using local Firebase credentials: {e}")
     try:
-        cred = credentials.Certificate("AI_Health_UI/ai-power-structural-health-m-s-firebase-adminsdk-fbsvc-065dfad472.json")
+        cred = credentials.Certificate("AI_Health_UI/ai-power-structural-health-m-s-firebase-adminsdk-fbsvc-76a80ebaa3.json")
         if not firebase_admin._apps:
             firebase_admin.initialize_app(cred)
         db = firestore.client()
