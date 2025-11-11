@@ -41,6 +41,7 @@ except Exception:
 from PyPDF2 import PdfReader
 
 # NLP (optional)
+import torch
 try:
     from transformers import pipeline
     NLP_AVAILABLE = True
@@ -91,7 +92,7 @@ def init_firebase():
     except Exception as e:
         st.warning(f"Using Streamlit secrets for Firebase failed: {e}")
     # 2) Try local service account file path from env var or default
-    local_path = os.getenv("FIREBASE_JSON_PATH") or str(BASE_DIR / "AI_Health_UI" / "serviceAccountKey.json")
+    local_path = os.getenv("FIREBASE_JSON_PATH") or str(BASE_DIR / "AI_Health_UI" / "ai-power-structural-health-m-s-firebase-adminsdk-fbsvc-76a80ebaa3.json")
     if Path(local_path).exists():
         try:
             cred = credentials.Certificate(local_path)
@@ -103,7 +104,7 @@ def init_firebase():
         except Exception as e:
             st.error(f"Local Firebase init failed: {e}")
     # final fallback
-    st.info("AI_Health_UI/ai-power-structural-health-m-s-firebase-adminsdk-fbsvc-76a80ebaa3.json")
+    st.info("Firebase not connected. Provide credentials via Streamlit secrets (preferred) or set FIREBASE_JSON_PATH env var")
     return None
 
 db = init_firebase()
