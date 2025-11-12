@@ -98,7 +98,7 @@ DISEASES = ["Heart", "Diabetes", "Liver", "Blood"]
 FIREBASE_DB_TYPE = os.getenv("FIREBASE_DB_TYPE", "both").lower()  # "firestore", "realtime", "both"
 
 # Default Realtime DB URL (replace in secrets if different)
-DEFAULT_RTD_URL = os.getenv("FIREBASE_RTD_URL", "")
+DEFAULT_RTD_URL = os.getenv("FIREBASE_RTD_URL", "https://ai-power-structural-health-m-s-default-rtdb.firebaseio.com")
 
 # ----------------------------
 # Firebase Initialization (supports Firestore + Realtime)
@@ -125,7 +125,7 @@ def init_firebase():
 
     # fallback to file path env var or default path
     if cred_obj is None:
-        path = os.getenv("FIREBASE_JSON_PATH") or str(BASE_DIR / "AI_Health_UI" / "ai-power-structural-health-m-s-firebase-adminsdk-fbsvc-76a80ebaa3.json")
+        path = os.getenv("FIREBASE_JSON_PATH") or str(BASE_DIR / "AI_Health_UI"/"ai-power-structural-health-m-s-firebase-adminsdk-fbsvc-08f5f13256.json")
         if Path(path).exists():
             try:
                 cred_obj = json.load(open(path, "r"))
