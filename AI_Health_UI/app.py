@@ -15,6 +15,8 @@ from typing import Optional
 import streamlit as st
 import pandas as pd
 import numpy as np
+import torch
+from transformers import pipeline
 
 # ----------------------------
 # Optional ML / OCR / NLP imports (safe fallbacks)
@@ -572,15 +574,16 @@ if st.button(f"🔍 Predict {disease_selection}"):
 st.markdown("---")
 st.header("📄 Medical Report Detection (OCR + AI Doctor)")
 
-uploaded = st.file_uploader("Upload Report (PDF / Image)", type=["pdf","png","jpg","jpeg"])
+uploaded = st.file_uploader("Upload Report (PDF / Image)", type=["pdf", "png", "jpg", "jpeg"])
+
 if uploaded is not None:
     try:
         tmp_path = TMP_DIR / f"uploaded_{int(time.time())}.pdf"
-        # If image, convert bytes to image and run tesseract directly; if pdf, write as pdf
         content = uploaded.read()
         ext = uploaded.name.split(".")[-1].lower()
-        if ext in ("png","jpg","jpeg"):
-            # create a temporary image file path and run pytesseract directly if available
+
+        # Handle image vs PDF
+        if ext in ("png", "jpg", "jpeg"):
             img_path = TMP_DIR / f"img_{int(time.time())}.{ext}"
             with open(img_path, "wb") as f:
                 f.write(content)
@@ -592,48 +595,78 @@ if uploaded is not None:
         else:
             tmp_path.write_bytes(content)
             text = extract_text_from_pdf(tmp_path, poppler_path=poppler_path.strip() or None)
-        st.text_area("📝 Extracted Report Text", text, height=300)
 
-        # Save extracted text to Firestore
+        st.text_area("📝 Extracted Report Text", text[:10000], height=300)
+
+        # --- Firebase or local save ---
         rec = {
             "timestamp": datetime.utcnow().isoformat(),
             "source_file": uploaded.name,
             "extracted_text": text[:10000]
         }
+
         if firebase_firestore_client is not None:
             try:
                 firebase_firestore_client.collection("ocr_reports").add(rec)
             except Exception as e:
                 st.warning(f"Failed to save OCR to Firestore: {e}")
         else:
-            # local fallback append
             try:
                 csvp = BASE_DIR / "local_ocr_reports.csv"
                 dfold = pd.read_csv(csvp) if csvp.exists() else pd.DataFrame()
-                dfnew = pd.DataFrame([{"timestamp": rec["timestamp"], "source_file": rec["source_file"], "text": rec["extracted_text"][:300]}])
+                dfnew = pd.DataFrame([{
+                    "timestamp": rec["timestamp"],
+                    "source_file": rec["source_file"],
+                    "text": rec["extracted_text"][:300]
+                }])
                 pd.concat([dfold, dfnew], ignore_index=True).to_csv(csvp, index=False)
             except Exception as e:
                 st.warning(f"Failed local OCR persistence: {e}")
 
-        # AI doctor analyzing OCR text
+        # --- AI Doctor Section ---
         if enable_nlp:
-            ai = ai_doctor_analysis(text, prediction_summary=None)
-            st.subheader("AI Doctor Analysis")
-            st.write("**Summary:**", ai.get("summary"))
-            st.write("**Recommendations:**", ai.get("recommendations"))
-            st.write("**Severity:**", ai.get("severity"))
-            st.write("**Explanation:**", ai.get("explain"))
-            # add AI output to metadata
-            meta = {"Source": uploaded.name, "AI_Summary": ai.get("summary",""), "AI_Severity": ai.get("severity","")}
+            try:
+                ai = ai_doctor_analysis(text, prediction_summary=None)
+                st.subheader("AI Doctor Analysis")
+                st.write("**Summary:**", ai.get("summary", "N/A"))
+                st.write("**Recommendations:**", ai.get("recommendations", "N/A"))
+                st.write("**Severity:**", ai.get("severity", "N/A"))
+                st.write("**Explanation:**", ai.get("explain", "N/A"))
+                meta = {"Source": uploaded.name, "AI_Summary": ai.get("summary", ""), "AI_Severity": ai.get("severity", "")}
+            except Exception as e:
+                st.warning(f"AI Doctor failed: {e}")
+                meta = {"Source": uploaded.name}
         else:
             meta = {"Source": uploaded.name}
 
-        # create table-based PDF of OCR (one-row table)
-        df_table = pd.DataFrame({"Extracted Text": [text]})
-        pdf_bytes = generate_pdf("OCR Extracted Report", meta, df_table)
-        st.download_button("📥 Download OCR Report (PDF)", data=pdf_bytes, file_name=f"OCR_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf", mime="application/pdf")
+        # --- Safe PDF Generation (Split long text) ---
+        from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak
+        from reportlab.lib.styles import getSampleStyleSheet
+        from io import BytesIO
+
+        buffer = BytesIO()
+        doc = SimpleDocTemplate(buffer)
+        styles = getSampleStyleSheet()
+        story = []
+
+        max_chars = 2500
+        for i in range(0, len(text), max_chars):
+            story.append(Paragraph(text[i:i + max_chars], styles["Normal"]))
+            story.append(PageBreak())
+
+        doc.build(story)
+        pdf_bytes = buffer.getvalue()
+
+        st.download_button(
+            "📥 Download OCR Report (PDF)",
+            data=pdf_bytes,
+            file_name=f"OCR_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
+            mime="application/pdf"
+        )
+
     except Exception as e:
         st.error(f"OCR processing failed: {e}")
+
 else:
     st.info("📂 Upload a medical report (PDF/image) to extract and analyze.")
 
