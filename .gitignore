@@ -1,1 +1,91 @@
-# ==========================# Python# ==========================__pycache__/*.pyc*.pyo*.pyd*.log*.tmp*.bak*.swp.envvenv/env/.venv/.ipynb_checkpoints/*.sqlite3*.db# ==========================# Streamlit# ==========================.streamlit/secrets.toml       # 🔥 Actual secrets (never push this).streamlit/secrets.json.streamlit/config.toml# ==========================# Firebase / Credentials# ==========================*.json                        # Any Firebase credentials*.pem*.key*.p12*.cer# ==========================# OS / Editor# ==========================.DS_StoreThumbs.dbdesktop.ini.vscode/.idea/# ==========================# Build / Output files# ==========================dist/build/*.egg-info/*.spec*.exe*.dll*.so*.dylib*.zip*.tar*.gz# ==========================# Data / Models# ==========================*.h5*.hdf5*.ckpt*.joblib*.pkl*.csv*.xls*.xlsx*.npy*.npz*.pt*.onnxmedia/uploads/data/models/output/results/# ==========================# Temporary folders# ==========================tmp/logs/__temp__/cache/.mypy_cache/pytest_cache/
+# ==========================
+# Python
+# ==========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.tmp
+*.bak
+*.swp
+.env
+venv/
+env/
+.venv/
+.ipynb_checkpoints/
+*.sqlite3
+*.db
+
+# ==========================
+# Streamlit
+# ==========================
+# 🔐 Private config files
+AI_Health_UI\.streamlit\secrets.toml
+AI_Health_UI/ai-power-structural-health-m-s-firebase-adminsdk-fbsvc-08f5f13256.json
+
+
+# ==========================
+# Firebase / Credentials
+# ==========================
+*.json                        # Any Firebase credentials
+*.pem
+*.key
+*.p12
+*.cer
+
+# ==========================
+# OS / Editor
+# ==========================
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# ==========================
+# Build / Output files
+# ==========================
+dist/
+build/
+*.egg-info/
+*.spec
+*.exe
+*.dll
+*.so
+*.dylib
+*.zip
+*.tar
+*.gz
+
+# ==========================
+# Data / Models
+# ==========================
+*.h5
+*.hdf5
+*.ckpt
+*.joblib
+*.pkl
+*.csv
+*.xls
+*.xlsx
+*.npy
+*.npz
+*.pt
+*.onnx
+media/
+uploads/
+data/
+models/
+output/
+results/
+
+# ==========================
+# Temporary folders
+# ==========================
+tmp/
+logs/
+__temp__/
+cache/
+.mypy_cache/
+pytest_cache/
