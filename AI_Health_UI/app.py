@@ -68,10 +68,9 @@ except Exception:
 # Transformers (AI Doctor)
 try:
     from transformers import pipeline
-    TRANSFORMERS_AVAILABLE = True
+    HF_AVAILABLE = True
 except Exception:
-    TRANSFORMERS_AVAILABLE = False
-
+    HF_AVAILABLE = False
 # ReportLab for PDF outputs
 try:
     from reportlab.lib.pagesizes import A4
@@ -80,7 +79,7 @@ try:
     from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Spacer
     REPORTLAB_AVAILABLE = True
 except Exception:
-    REPORTLAB_AVAILABLE = False
+    REPORTLAB_AVAILABLE = False 
 
 # ----------------------------
 # Config / Paths
@@ -103,7 +102,7 @@ FIREBASE_DB_TYPE = os.getenv("FIREBASE_DB_TYPE", "both").lower()  # "firestore",
 DEFAULT_RTD_URL = os.getenv("FIREBASE_RTD_URL", "https://ai-power-structural-health-m-s-default-rtdb.firebaseio.com")
 
 # ----------------------------
-# Firebase Initialization (supports Firestore + Realtime)
+# Firebase Initialization (supports Firestore + Realtime) 
 # ----------------------------
 firebase_firestore_client = None
 firebase_rtdb_root = None
@@ -374,7 +373,7 @@ def generate_pdf(title: str, metadata: dict, df_table: pd.DataFrame) -> bytes:
 # ----------------------------
 @st.cache_resource
 def load_ai_doctor():
-    if TRANSFORMERS_AVAILABLE:
+    if HF_AVAILABLE:
         try:
             summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
             classifier = pipeline("text-classification", model="distilbert-base-uncased-finetuned-sst-2-english")
@@ -386,16 +385,15 @@ def load_ai_doctor():
 
 ai_doctor = load_ai_doctor()
 
-def ai_doctor_analysis(text: str, prediction_summary: Optional[str] = None) -> dict:
-    """
-    Returns:
-      {
-        'summary': 'short summary',
-        'recommendations': 'advice',
-        'severity': 'Low/Medium/High',
-        'explain': 'plain explanation text'
-      }
-    """
+def ai_doctor_analysis(text, prediction_summary=None):
+    if not HF_AVAILABLE:
+        return {
+            "summary": "Advanced AI model not available on cloud.",
+            "recommendations": "Use OpenAI API or local GPU.",
+            "severity": "N/A",
+            "explain": "transformers is not installed."
+        }
+
     # If transformers present, use them for better summaries
     if ai_doctor is not None:
         try:
@@ -596,7 +594,7 @@ if uploaded is not None:
             tmp_path.write_bytes(content)
             text = extract_text_from_pdf(tmp_path, poppler_path=poppler_path.strip() or None)
 
-        st.text_area("📝 Extracted Report Text", text[:10000], height=300)
+        st.text_area("📝 Extracted Report Text", text[:200000], height=300)
 
         # --- Firebase or local save ---
         rec = {
