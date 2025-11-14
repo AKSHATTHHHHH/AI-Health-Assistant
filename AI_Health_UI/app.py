@@ -11,16 +11,15 @@ import random
 from pathlib import Path
 from datetime import datetime
 from typing import Optional
-
+# ----------------------------
+# Optional ML / OCR / NLP imports (safe fallbacks)
+# ----------------------------
 import streamlit as st
 import pandas as pd
 import numpy as np
 import torch
 from transformers import pipeline
 
-# ----------------------------
-# Optional ML / OCR / NLP imports (safe fallbacks)
-# ----------------------------
 # Firebase Admin
 try:
     import firebase_admin
